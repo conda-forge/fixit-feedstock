@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/fixit-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/fixit-{{ version }}.tar.gz
   sha256: b31665cb6491d659d8dfef5a6078a7e9f786e299826636d03d6bd91b6f71e95b
 
 build:
@@ -14,16 +14,16 @@ build:
     - fixit = fixit.cli:main
   script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   noarch: python
-  number: 0
+  number: 1
 
 requirements:
   host:
-    - python >=3.8
+    - python {{ python_min }}
     - hatchling
     - hatch-vcs
     - pip
   run:
-    - python >=3.8
+    - python >={{ python_min }}
     - click >=8.0
     - libcst >=0.3.18
     - moreorless >=0.4.0
@@ -39,6 +39,7 @@ test:
     - fixit --help
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://github.com/Instagram/Fixit
